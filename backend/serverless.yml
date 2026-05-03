@@ -1,0 +1,57 @@
+service: phone-number-verifier
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 15
+  architecture: arm64
+  logRetentionInDays: 14
+  environment:
+    NODE_ENV: production
+    MONGO_URI: ${env:MONGO_URI}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_TTL_SECONDS: ${env:JWT_TTL_SECONDS, '3600'}
+    OTP_TTL_SECONDS: ${env:OTP_TTL_SECONDS, '300'}
+    OTP_COOLDOWN_SECONDS: ${env:OTP_COOLDOWN_SECONDS, '60'}
+    OTP_MAX_ATTEMPTS: ${env:OTP_MAX_ATTEMPTS, '5'}
+    SMS_TRANSPORT: ${env:SMS_TRANSPORT, 'console'}
+    TWILIO_ACCOUNT_SID: ${env:TWILIO_ACCOUNT_SID, ''}
+    TWILIO_AUTH_TOKEN: ${env:TWILIO_AUTH_TOKEN, ''}
+    TWILIO_FROM_NUMBER: ${env:TWILIO_FROM_NUMBER, ''}
+
+functions:
+  api:
+    handler: lambda.handler
+    description: Phone number verifier API — Express via serverless-http behind API Gateway HTTP API
+    events:
+      - httpApi:
+          method: '*'
+          path: /{proxy+}
+      - httpApi:
+          method: '*'
+          path: /
+
+package:
+  patterns:
+    - '!.env'
+    - '!.env.*'
+    - '!*.md'
+    - '!nodemon.json'
+    - '!node_modules/serverless/**'
+    - '!node_modules/serverless-offline/**'
+    - '!node_modules/@serverless/**'
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    noPrependStageInUrl: true
