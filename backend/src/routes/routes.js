@@ -1,7 +1,7 @@
 const express = require('express');
 
-const otp = require('./otp');
-const jwtSvc = require('./jwt');
+const otp = require('../services/otp');
+const jwtSvc = require('../services/jwt');
 const { authenticate } = require('./auth');
 const { User } = require('../models/models');
 

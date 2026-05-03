@@ -76,7 +76,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="section">
+      {/* <div className="section">
         <h2>3. Call protected route</h2>
         <button
           disabled={busy || !token}
@@ -89,7 +89,7 @@ export default function App() {
             <strong>JWT:</strong> {token.slice(0, 32)}…
           </p>
         )}
-      </div>
+      </div> */}
 
       {error && <div className="error">{error}</div>}
 

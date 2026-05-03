@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 const config = require('../config/config');
 const { OtpRecord, User } = require('../models/models');
-const sms = require('../sms');
+const sms = require('./sms');
 
 const PHONE_REGEX = /^\+[1-9]\d{6,14}$/;
 
