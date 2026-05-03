@@ -36,7 +36,7 @@ module.exports = {
   mongoUri,
   jwtSecret: jwtSecret || 'test-only-secret-not-for-production-use-32c',
   jwtTtlSeconds: parseInt(process.env.JWT_TTL_SECONDS || '3600', 10),
-  otpTtlSeconds: parseInt(process.env.OTP_TTL_SECONDS || '300', 10),
+  otpTtlSeconds: parseInt(process.env.OTP_TTL_SECONDS || '120', 10),
   otpCooldownSeconds: parseInt(process.env.OTP_COOLDOWN_SECONDS || '60', 10),
   otpMaxAttempts: parseInt(process.env.OTP_MAX_ATTEMPTS || '5', 10),
   smsTransport,
